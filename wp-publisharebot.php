@@ -53,7 +53,6 @@ function pushbot_settings_init() {
 		'pushbot',
 		'pushbot_section_developers',
 		[
-			'label_for' => 'pushbot_field_endpoint',
 			'class'     => 'pushbot_row'
 		]
 	);
@@ -94,21 +93,8 @@ function pushbot_section_developers_callback( $args ) { ?>
  */
 function pushbot_field_endpoint_cb( $args ) {
 	// Get the value of the setting we've registered with register_setting()
-	$options = get_option( 'pushbot_options' ); ?>
+	// $options = get_option( 'pushbot_options' ); // Actually unused options ?>
 	<i><?php echo get_site_url() . '/wp-json' . PUSHBOT_API . PUSHBOT_API_SUFFIX; ?></i>
-	<input type="text" placeholder=""
-	 id="<?php echo esc_attr( $args['label_for'] ); ?>"
-	 value="<?php echo esc_attr( $options[ $args['label_for'] ] ); ?>"
-	 name="pushbot_options[<?php echo esc_attr( $args['label_for'] ); ?>]"
-	/>
-	<button id="copier"><?php echo esc_html_e( 'Copy' ); ?></button>
-	<script type="text/javascript">
-	document.querySelector('#copier').onclick = function(ev) {
-		ev.preventDefault()
-		document.querySelector('#<?php echo esc_attr( $args['label_for'] ); ?>').select()
-		document.execCommand('copy')
-	}
-	</script>
 	<p class="description">
 		<?php esc_html_e( 'Copy the above url and paste it on the bot settings.', 'pushbot' ); ?>
 		<br>
@@ -124,30 +110,10 @@ function pushbot_field_endpoint_cb( $args ) {
  */
 function pushbot_options_page_html() {
 	// check user capabilities
-	if ( ! current_user_can( 'manage_options' ) ) return;
-
-	// add error/update messages
-
-	// check if the user have submitted the settings
-	// WordPress will add the "settings-updated" $_GET parameter to the url
-	if ( isset( $_GET['settings-updated'] ) ) {
-		// add settings saved message with the class of "updated"
-		add_settings_error( 'pushbot_messages', 'pushbot_message', __( 'Settings Saved', 'pushbot' ), 'updated' );
-	}
-
-	// show error/update messages
-	settings_errors( 'pushbot_messages' ); ?>
+	if ( ! current_user_can( 'manage_options' ) ) return; ?>
 	<div class="wrap">
 		<h1><?php echo esc_html( get_admin_page_title() ); ?></h1>
-		<form action="options.php" method="post"><?php
-			// output security fields for the registered setting "pushbot"
-			settings_fields( 'pushbot' );
-			// output setting sections and their fields
-			// (sections are registered for "pushbot", each field is registered to a specific section)
-			do_settings_sections( 'pushbot' );
-			// output save settings button
-			submit_button( 'Save Settings' ); ?>
-		</form>
+		<?php do_settings_sections( 'pushbot' ); ?>
 	</div>
 <?php }
 
