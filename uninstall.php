@@ -6,3 +6,4 @@ if ( ! defined( 'WP_UNINSTALL_PLUGIN' ) ) {
 }
 
 delete_option( 'pushbot_api_suffix' );
+delete_option( 'pushbot_options' );
