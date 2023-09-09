@@ -139,6 +139,37 @@ add_action( 'admin_menu', 'pushbot_menu_page' );
 
 
 /**
+ * Attach main photo to post
+ */
+function pushbot_attach_photo( $post_id, $base64photo ) {
+	// Get the path to the upload directory.
+	$wp_upload_dir = wp_upload_dir();
+	$imagefile = 'pushbot-' . time() . '-' . uniqid() . '.jpg';
+	$imagefile_path = $wp_upload_dir['path'] . '/' . $imagefile;
+	$decoded = base64_decode( $base64photo );
+	file_put_contents( $imagefile_path, $decoded );
+	// Check the type of file. We'll use this as the 'post_mime_type'.
+	$filetype = wp_check_filetype( $imagefile, null );
+	// Prepare an array of post data for the attachment.
+	$attachment = [
+		'guid'           => $imagefile_path,
+		'post_mime_type' => $filetype['type'],
+		'post_title'     => preg_replace( '/\.[^.]+$/', '', $imagefile ),
+		'post_content'   => '',
+		'post_status'    => 'inherit'
+	];
+	// Insert the attachment.
+	$attach_id = wp_insert_attachment( $attachment, $imagefile_path, $post_id );
+	// Make sure that this file is included, as wp_generate_attachment_metadata() depends on it.
+	require_once( ABSPATH . 'wp-admin/includes/image.php' );
+	// Generate the metadata for the attachment, and update the database record.
+	$attach_data = wp_generate_attachment_metadata( $attach_id, $imagefile_path );
+	wp_update_attachment_metadata( $attach_id, $attach_data );
+	set_post_thumbnail( $post_id, $attach_id );
+}
+
+
+/**
  * Endpoint callback functions
  */
 // GET
@@ -184,30 +215,7 @@ function pushbot_endpoint_post_cb( WP_REST_Request $request ) {
 
 	// Upload image too, if any
 	if ( $payload['base64Photo'] ) {
-		// Get the path to the upload directory.
-		$wp_upload_dir = wp_upload_dir();
-		$imagefile = 'pushbot-' . time() . '-' . uniqid() . '.jpg';
-		$imagefile_path = $wp_upload_dir['path'] . '/' . $imagefile;
-		$decoded = base64_decode( $payload['base64Photo'] );
-		file_put_contents( $imagefile_path, $decoded );
-		// Check the type of file. We'll use this as the 'post_mime_type'.
-		$filetype = wp_check_filetype( $imagefile, null );
-		// Prepare an array of post data for the attachment.
-		$attachment = [
-			'guid'           => $imagefile_path, 
-			'post_mime_type' => $filetype['type'],
-			'post_title'     => preg_replace( '/\.[^.]+$/', '', $imagefile ),
-			'post_content'   => '',
-			'post_status'    => 'inherit'
-		];
-		// Insert the attachment.
-		$attach_id = wp_insert_attachment( $attachment, $imagefile_path, $post_id );
-		// Make sure that this file is included, as wp_generate_attachment_metadata() depends on it.
-		require_once( ABSPATH . 'wp-admin/includes/image.php' );
-		// Generate the metadata for the attachment, and update the database record.
-		$attach_data = wp_generate_attachment_metadata( $attach_id, $imagefile_path );
-		wp_update_attachment_metadata( $attach_id, $attach_data );
-		set_post_thumbnail( $post_id, $attach_id );
+		pushbot_attach_photo( $post_id, $payload['base64Photo'] );
 	}
 }
 
@@ -246,7 +254,7 @@ function pushbot_endpoint_put_cb( WP_REST_Request $request ) {
 		return new WP_Error( 'not_found', '', ['status' => 404] );
 	}
 
-	// Publish post
+	// Update post
 	$post_id = wp_update_post( [
 		'ID'           => $wp_query->posts[0]->ID,
 		'post_title'   => $payload['title'] ? trim( esc_html( $payload['title'] ) ) : '',
@@ -256,30 +264,7 @@ function pushbot_endpoint_put_cb( WP_REST_Request $request ) {
 
 	// Upload image too, if any
 	if ( $payload['base64Photo'] ) {
-		// Get the path to the upload directory.
-		$wp_upload_dir = wp_upload_dir();
-		$imagefile = 'pushbot-' . time() . '-' . uniqid() . '.jpg';
-		$imagefile_path = $wp_upload_dir['path'] . '/' . $imagefile;
-		$decoded = base64_decode( $payload['base64Photo'] );
-		file_put_contents( $imagefile_path, $decoded );
-		// Check the type of file. We'll use this as the 'post_mime_type'.
-		$filetype = wp_check_filetype( $imagefile, null );
-		// Prepare an array of post data for the attachment.
-		$attachment = [
-			'guid'           => $imagefile_path, 
-			'post_mime_type' => $filetype['type'],
-			'post_title'     => preg_replace( '/\.[^.]+$/', '', $imagefile ),
-			'post_content'   => '',
-			'post_status'    => 'inherit'
-		];
-		// Insert the attachment.
-		$attach_id = wp_insert_attachment( $attachment, $imagefile_path, $post_id );
-		// Make sure that this file is included, as wp_generate_attachment_metadata() depends on it.
-		require_once( ABSPATH . 'wp-admin/includes/image.php' );
-		// Generate the metadata for the attachment, and update the database record.
-		$attach_data = wp_generate_attachment_metadata( $attach_id, $imagefile_path );
-		wp_update_attachment_metadata( $attach_id, $attach_data );
-		set_post_thumbnail( $post_id, $attach_id );
+		pushbot_attach_photo( $post_id, $payload['base64Photo'] );
 	}
 }
 
