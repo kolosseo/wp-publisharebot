@@ -233,10 +233,10 @@ function pushbot_endpoint_put_cb( WP_REST_Request $request ) {
 	}
 
 	// Do nothing if no text
-	if ( ! $payload['text'] ) {
+	if ( ! $payload['text'] || ! $payload['base64Photo'] ) {
 		return new WP_Error(
-			'no_text',
-			'Missing "text"',
+			'no_text_nor_image',
+			'Missing "text" nor "image"',
 			['status' => 400]
 		);
 	}
