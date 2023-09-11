@@ -20,7 +20,8 @@ if ( ! get_option( 'pushbot_api_suffix' ) ) {
 // Constants
 define( PUSHBOT_API, '/pushbot/v1' );
 define( PUSHBOT_API_SUFFIX, '/' . get_option( 'pushbot_api_suffix' ) );
-define( PUSHBOT_SITE, 'https://publishare.0x100.it' );
+define( PUSHBOT_DOMAIN, 'publishare.0x100.it' );
+define( PUSHBOT_SITE, 'https://' . PUSHBOT_DOMAIN );
 
 
 /**
@@ -77,7 +78,8 @@ add_action( 'admin_init', 'pushbot_settings_init' );
  */
 function pushbot_section_developers_callback( $args ) { ?>
 	<p id="<?php echo esc_attr( $args['id'] ); ?>">
-		<?php esc_html_e( 'Automagically share your Telegram channel posts on WP', 'pushbot' ); ?>
+		<?php esc_html_e( 'Automagically share your Telegram channel posts on WP with', 'pushbot' ); ?>
+		<a target="_blank" href="https://t.me/publishareBot">@publishareBot</a>
 	</p>
 <?php }
 
@@ -96,13 +98,17 @@ function pushbot_field_endpoint_cb( $args ) {
 	<i style="display:inline-block;border:2px dashed #ccc;padding:4px 18px;margin-bottom:18px" >
 		<?php echo get_site_url() . '/wp-json' . PUSHBOT_API . PUSHBOT_API_SUFFIX; ?>
 	</i>
-	<p class="description">
+	<p class="description" style="margin-bottom:18px">
 		<?php esc_html_e( 'Just copy the url above and paste it in the bot settings.', 'pushbot' ); ?>
 		<br>
 		<?php esc_html_e( 'To get more info, click on the', 'pushbot' ); ?>
 		<a target="_blank" href="<?php echo PUSHBOT_SITE; ?>/faq.html"><?php esc_html_e( 'FAQ', 'pushbot' ); ?></a>
 		<?php esc_html_e( 'page and read the question:', 'pushbot' ); ?><br>
 		<i><b><?php esc_html_e( '"How can I link the bot with my website?"', 'pushbot' ); ?></b></i>
+	</p>
+	<p class="description">
+		<?php esc_html_e( 'Official project website:', 'pushbot' ); ?>
+		<a target="_blank" href="<?php echo PUSHBOT_SITE; ?>"><?php echo PUSHBOT_DOMAIN; ?></a>.
 	</p>
 <?php }
 
