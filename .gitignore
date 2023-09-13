@@ -1,4 +1,5 @@
 # Mixed
+.gitignore
 .env
 .env.*
 !.env.example
