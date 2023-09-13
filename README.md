@@ -1,6 +1,6 @@
-# publishareBot
+# WP publishareBot
  
-## The Web Publisher (for WP)
+## The ~~Web~~ WP Publisher
 
 This WordPress plugin will automatically generate, and set out of the box,
 a working endpoint for [@publishareBot](https://t.me/publishareBot).
