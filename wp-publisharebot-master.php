@@ -18,10 +18,10 @@ if ( ! get_option( 'pushbot_api_suffix' ) ) {
 	add_option( 'pushbot_api_suffix', bin2hex( random_bytes(3) ) );
 }
 // Constants
-define( PUSHBOT_API, '/pushbot/v1' );
-define( PUSHBOT_API_SUFFIX, '/' . get_option( 'pushbot_api_suffix' ) );
-define( PUSHBOT_DOMAIN, 'publishare.0x100.it' );
-define( PUSHBOT_SITE, 'https://' . PUSHBOT_DOMAIN );
+define( 'PUSHBOT_API', '/pushbot/v1' );
+define( 'PUSHBOT_API_SUFFIX', '/' . get_option( 'pushbot_api_suffix' ) );
+define( 'PUSHBOT_DOMAIN', 'publishare.0x100.it' );
+define( 'PUSHBOT_SITE', 'https://' . PUSHBOT_DOMAIN );
 
 
 /**
