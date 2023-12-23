@@ -191,11 +191,11 @@ function pushbot_endpoint_get_cb( WP_REST_Request $request ) {
 function pushbot_endpoint_post_cb( WP_REST_Request $request ) {
 	$payload = $request->get_json_params();
 
-	// Do nothing if no messageId
-	if ( ! $payload['messageId'] ) {
+	// Do nothing if no "id"
+	if ( ! $payload['id'] ) {
 		return new WP_Error(
 			'no_message_id',
-			'Missing "messageId"',
+			'Missing "id"',
 			['status' => 400]
 		);
 	}
@@ -217,7 +217,7 @@ function pushbot_endpoint_post_cb( WP_REST_Request $request ) {
 	] );
 
 	// Add message ID
-	add_post_meta( $post_id, 'tg_msg_id', $payload['messageId'] );
+	add_post_meta( $post_id, 'tg_msg_id', $payload['id'] );
 
 	// Upload image too, if any
 	if ( $payload['base64Photo'] ) {
@@ -229,11 +229,11 @@ function pushbot_endpoint_post_cb( WP_REST_Request $request ) {
 function pushbot_endpoint_put_cb( WP_REST_Request $request ) {
 	$payload = $request->get_json_params();
 
-	// Do nothing if no messageId
-	if ( ! $payload['messageId'] ) {
+	// Do nothing if no "id"
+	if ( ! $payload['id'] ) {
 		return new WP_Error(
 			'no_message_id',
-			'Missing "messageId"',
+			'Missing "id"',
 			['status' => 400]
 		);
 	}
@@ -252,7 +252,7 @@ function pushbot_endpoint_put_cb( WP_REST_Request $request ) {
 		'post_type'    => 'post',
 		'meta_compare' => '=',
 		'meta_key'     => 'tg_msg_id',
-		'meta_value'   => $payload['messageId'],
+		'meta_value'   => $payload['id'],
 	] );
 
 	// Checks
