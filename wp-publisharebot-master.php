@@ -1,8 +1,8 @@
 <?php
 /**
- * Plugin Name: WP publishareBot
+ * Plugin Name: PublishareBot API Endpoint
  * Plugin URI: https://publishare.0x100.it
- * Description: Helping you to automatically share your Telegram channel posts on Wordpress
+ * Description: Helping you to automatically share your Telegram posts on Wordpress
  * Version: 1.0.0
  * Author: Jacopo Pace
  * Author URI: https://jacopo.im
@@ -12,12 +12,11 @@
 // Exit if accessed directly.
 if ( !defined( 'ABSPATH' ) ) exit;
 
-// Generate random API suffix
-//delete_option( 'pushbot_api_suffix' );
+// Generate random API suffix.
 if ( ! get_option( 'pushbot_api_suffix' ) ) {
 	add_option( 'pushbot_api_suffix', bin2hex( random_bytes(3) ) );
 }
-// Constants
+// Constants.
 define( 'PUSHBOT_API', '/pushbot/v1' );
 define( 'PUSHBOT_API_SUFFIX', '/' . get_option( 'pushbot_api_suffix' ) );
 define( 'PUSHBOT_DOMAIN', 'publishare.0x100.it' );
@@ -25,13 +24,7 @@ define( 'PUSHBOT_SITE', 'https://' . PUSHBOT_DOMAIN );
 
 
 /**
- * @internal never define functions inside callbacks.
- * these functions could be run multiple times; this would result in a fatal error.
- */
-
-
-/**
- * custom option and settings
+ * Custom option and settings
  */
 function pushbot_settings_init() {
 	// Register a new setting for "pushbot" page.
@@ -53,9 +46,7 @@ function pushbot_settings_init() {
 		'pushbot_field_endpoint_cb',
 		'pushbot',
 		'pushbot_section_developers',
-		[
-			'class'     => 'pushbot_row'
-		]
+		[ 'class' => 'pushbot_row' ]
 	);
 }
 
@@ -63,12 +54,6 @@ function pushbot_settings_init() {
  * Register our pushbot_settings_init to the admin_init action hook.
  */
 add_action( 'admin_init', 'pushbot_settings_init' );
-
-
-/**
- * Custom option and settings:
- *  - callback functions
- */
 
 
 /**
@@ -87,8 +72,8 @@ function pushbot_section_developers_callback( $args ) { ?>
  * Pushbot field callback function.
  *
  * WordPress has magic interaction with the following keys: label_for, class.
- * - the "label_for" key value is used for the "for" attribute of the <label>.
- * - the "class" key value is used for the "class" attribute of the <tr> containing the field.
+ * - The "label_for" key value is used for the "for" attribute of the <label>.
+ * - The "class" key value is used for the "class" attribute of the <tr> containing the field.
  * Note: you can add custom key value pairs to be used inside your callbacks.
  *
  * @param array $args
