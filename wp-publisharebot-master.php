@@ -113,7 +113,7 @@ function pushbot_options_page_html() {
  * Add the top level menu page.
  */
 function pushbot_menu_page() {
-	add_menu_page( // Or "add_options_page"
+	add_menu_page(
 		'WP publishareBot',
 		'PublishareBot',
 		'manage_options',
