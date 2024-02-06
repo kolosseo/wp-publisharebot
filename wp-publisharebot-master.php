@@ -62,7 +62,7 @@ add_action( 'admin_init', 'pushbot_settings_init' );
  * @param array $args  The settings array, defining title, id, callback.
  */
 function pushbot_section_developers_callback( $args ) { ?>
-	<p id="<?php echo esc_attr( $args['id'] ); ?>">
+	<p id="<?php esc_attr_e( $args['id'] ); ?>">
 		<?php esc_html_e( 'Automagically share your Telegram channel posts on WP with', 'pushbot' ); ?>
 		<a target="_blank" href="https://t.me/publishareBot">@publishareBot</a>
 	</p>
@@ -81,19 +81,19 @@ function pushbot_section_developers_callback( $args ) { ?>
 function pushbot_field_endpoint_cb( $args ) {
 	// $options = get_option( 'pushbot_options' ); // Actually unused options ?>
 	<i style="display:inline-block;border:2px dashed #ccc;padding:4px 18px;margin-bottom:18px" >
-		<?php echo get_site_url() . '/wp-json' . PUSHBOT_API . PUSHBOT_API_SUFFIX; ?>
+		<?php esc_html_e( get_site_url() . '/wp-json' . PUSHBOT_API . PUSHBOT_API_SUFFIX ); ?>
 	</i>
 	<p class="description" style="margin-bottom:18px">
 		<?php esc_html_e( 'Just copy the url above and paste it in the bot settings.', 'pushbot' ); ?>
 		<br>
 		<?php esc_html_e( 'To get more info, click on the', 'pushbot' ); ?>
-		<a target="_blank" href="<?php echo PUSHBOT_SITE; ?>/faq.html"><?php esc_html_e( 'FAQ', 'pushbot' ); ?></a>
+		<a target="_blank" href="<?php esc_attr_e( PUSHBOT_SITE ); ?>/faq.html"><?php esc_html_e( 'FAQ', 'pushbot' ); ?></a>
 		<?php esc_html_e( 'page and read the question:', 'pushbot' ); ?><br>
 		<i><b><?php esc_html_e( '"How can I link the bot with my website?"', 'pushbot' ); ?></b></i>
 	</p>
 	<p class="description">
 		<?php esc_html_e( 'Official project website:', 'pushbot' ); ?>
-		<a target="_blank" href="<?php echo PUSHBOT_SITE; ?>"><?php echo PUSHBOT_DOMAIN; ?></a>.
+		<a target="_blank" href="<?php esc_attr_e( PUSHBOT_SITE ); ?>"><?php esc_html_e( PUSHBOT_DOMAIN ); ?></a>.
 	</p>
 <?php }
 
@@ -104,7 +104,7 @@ function pushbot_options_page_html() {
 	// check user capabilities
 	if ( ! current_user_can( 'manage_options' ) ) return; ?>
 	<div class="wrap">
-		<h1><?php echo esc_html( get_admin_page_title() ); ?></h1>
+		<h1><?php esc_html_e( get_admin_page_title() ); ?></h1>
 		<?php do_settings_sections( 'pushbot' ); ?>
 	</div>
 <?php }
