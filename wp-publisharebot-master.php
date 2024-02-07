@@ -197,7 +197,7 @@ function pushbot_endpoint_post_cb( WP_REST_Request $request ) {
 	// Publish post
 	$post_id = wp_insert_post( [
 		'post_title' => $payload['title'] ? trim( esc_html( $payload['title'] ) ) : '',
-		'post_content' => esc_html( $payload['text'] ),
+		'post_content' => $payload['text'] ? esc_html( $payload['text'] ) : ' ',
 		'post_status' => 'publish',
 	] );
 
@@ -249,7 +249,7 @@ function pushbot_endpoint_put_cb( WP_REST_Request $request ) {
 	$post_id = wp_update_post( [
 		'ID'           => $wp_query->posts[0]->ID,
 		'post_title'   => $payload['title'] ? trim( esc_html( $payload['title'] ) ) : '',
-		'post_content' => esc_html( $payload['text'] ),
+		'post_content' => $payload['text'] ? esc_html( $payload['text'] ) : ' ',
 		'post_status'  => 'publish',
 	] );
 
