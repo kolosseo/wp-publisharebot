@@ -3,7 +3,7 @@
  * Plugin Name: PublishareBot API Endpoint
  * Plugin URI: https://publishare.0x100.it
  * Description: Helping you to automatically share your Telegram posts on Wordpress
- * Version: 1.1.1
+ * Version: 1.1.2
  * Author: Jacopo Pace
  * Author URI: https://jacopo.im
  * License: GPL v2
@@ -33,7 +33,7 @@ function pushbot_settings_init() {
 	// Register a new section in the "pushbot" page.
 	add_settings_section(
 		'pushbot_section_developers',
-		__( 'The Web Publisher', 'pushbot' ),
+		__( 'The Web Publisher', 'publisharebot-api-endpoint' ),
 		'pushbot_section_developers_callback',
 		'pushbot'
 	);
@@ -42,7 +42,7 @@ function pushbot_settings_init() {
 	add_settings_field(
 		'pushbot_field_endpoint', // As of WP 4.6 this value is used only internally.
 		                          // Use $args' label_for to populate the id inside the callback.
-		__( 'Endpoint url', 'pushbot' ),
+		__( 'Endpoint url', 'publisharebot-api-endpoint' ),
 		'pushbot_field_endpoint_cb',
 		'pushbot',
 		'pushbot_section_developers',
@@ -62,8 +62,8 @@ add_action( 'admin_init', 'pushbot_settings_init' );
  * @param array $args  The settings array, defining title, id, callback.
  */
 function pushbot_section_developers_callback( $args ) { ?>
-	<p id="<?php esc_attr_e( $args['id'] ); ?>">
-		<?php esc_html_e( 'Automagically share your Telegram channel posts on WP with', 'pushbot' ); ?>
+	<p id="<?php printf( esc_attr( $args['id'] ) ); ?>">
+		<?php esc_html_e( 'Automagically share your Telegram channel posts on WP with', 'publisharebot-api-endpoint' ); ?>
 		<a target="_blank" href="https://t.me/publishareBot">@publishareBot</a>
 	</p>
 <?php }
@@ -81,19 +81,19 @@ function pushbot_section_developers_callback( $args ) { ?>
 function pushbot_field_endpoint_cb( $args ) {
 	// $options = get_option( 'pushbot_options' ); // Actually unused options ?>
 	<i style="display:inline-block;border:2px dashed #ccc;padding:4px 18px;margin-bottom:18px" >
-		<?php esc_html_e( get_site_url() . '/wp-json' . PUSHBOT_API . PUSHBOT_API_SUFFIX ); ?>
+		<?php printf( esc_html( get_site_url() . '/wp-json' . PUSHBOT_API . PUSHBOT_API_SUFFIX ) ); ?>
 	</i>
 	<p class="description" style="margin-bottom:18px">
-		<?php esc_html_e( 'Just copy the url above and paste it in the bot settings.', 'pushbot' ); ?>
+		<?php esc_html_e( 'Just copy the url above and paste it in the bot settings.', 'publisharebot-api-endpoint' ); ?>
 		<br>
-		<?php esc_html_e( 'To get more info, click on the', 'pushbot' ); ?>
-		<a target="_blank" href="<?php esc_attr_e( PUSHBOT_SITE ); ?>/faq.html"><?php esc_html_e( 'FAQ', 'pushbot' ); ?></a>
-		<?php esc_html_e( 'page and read the question:', 'pushbot' ); ?><br>
-		<i><b><?php esc_html_e( '"How can I link the bot with my website?"', 'pushbot' ); ?></b></i>
+		<?php esc_html_e( 'To get more info, click on the', 'publisharebot-api-endpoint' ); ?>
+		<a target="_blank" href="<?php printf( esc_attr( PUSHBOT_SITE ) ); ?>/faq.html"><?php esc_html_e( 'FAQ', 'publisharebot-api-endpoint' ); ?></a>
+		<?php esc_html_e( 'page and read the question:', 'publisharebot-api-endpoint' ); ?><br>
+		<i><b><?php esc_html_e( '"How can I link the bot with my website?"', 'publisharebot-api-endpoint' ); ?></b></i>
 	</p>
 	<p class="description">
-		<?php esc_html_e( 'Official project website:', 'pushbot' ); ?>
-		<a target="_blank" href="<?php esc_attr_e( PUSHBOT_SITE ); ?>"><?php esc_html_e( PUSHBOT_DOMAIN ); ?></a>.
+		<?php esc_html_e( 'Official project website:', 'publisharebot-api-endpoint' ); ?>
+		<a target="_blank" href="<?php printf( esc_attr( PUSHBOT_SITE ) ); ?>"><?php printf( esc_html( PUSHBOT_DOMAIN ) ); ?></a>.
 	</p>
 <?php }
 
@@ -104,7 +104,7 @@ function pushbot_options_page_html() {
 	// check user capabilities
 	if ( ! current_user_can( 'manage_options' ) ) return; ?>
 	<div class="wrap">
-		<h1><?php esc_html_e( get_admin_page_title() ); ?></h1>
+		<h1><?php printf( esc_html( get_admin_page_title() ) ); ?></h1>
 		<?php do_settings_sections( 'pushbot' ); ?>
 	</div>
 <?php }
