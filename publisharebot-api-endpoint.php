@@ -2,8 +2,8 @@
 /**
  * Plugin Name: PublishareBot API Endpoint
  * Plugin URI: https://publishare.0x100.it
- * Description: Helping you to automatically share your Telegram posts on Wordpress
- * Version: 1.1.2
+ * Description: Automatically share your Telegram posts on Wordpress
+ * Version: 1.0.0
  * Author: Jacopo Pace
  * Author URI: https://jacopo.im
  * License: GPL v2

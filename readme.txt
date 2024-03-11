@@ -5,7 +5,7 @@ Donate link: https://donate.stripe.com/3csaHhd7jdGo64MaEE
 Requires at least: 3.7
 Tested up to: 6.4
 Requires PHP: 7.0
-Stable tag: 1.1.2
+Stable tag: 1.0.0
 License: GPL v2
 License URI: https://www.gnu.org/licenses/old-licenses/gpl-2.0.html
 
@@ -28,14 +28,5 @@ To get more info about the service and the project, just visit the official webs
 1. Plugin page
 
 == Changelog ==
-1.1.2
-* Fix WP code standards
-
-1.1.1
-* Consent the publishing of "image only" posts
-
-1.1.0
-* Plugin released officially
-
 1.0.0
 * Plugin released
