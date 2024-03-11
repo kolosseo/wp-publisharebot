@@ -20,11 +20,11 @@ You can visit the project [website](https://publishare.0x100.it/) to get more in
 
 == Installation ==
 Once installed, the plugin will automatically generate an endpoint URL to be used with the Telegram bot @publishareBot.
-Go to "settings" -> "publishareBot", copy the link and paste it to the bot settings.
+From the Wordpress admin panel: go to _Settings_ > _PublishareBot_, copy the **Endpoint url** and paste it to the bot settings.
 
 By uninstalling the plugin, the endpoint will stop working.
 
-To get more info about the service and the project, just visit the official [website](https://publishare.0x100.it).
+To get more info about the service and the project, just visit the official [FAQ page](https://publishare.0x100.it/faq).
 
 == Screenshots ==
 1. Plugin page
