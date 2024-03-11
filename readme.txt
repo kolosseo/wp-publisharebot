@@ -27,7 +27,14 @@ By uninstalling the plugin, the endpoint will stop working.
 To get more info about the service and the project, just visit the official [FAQ page](https://publishare.0x100.it/faq).
 
 == Screenshots ==
-1. Plugin page
+1. Plugin page. In this page you get the generated **Endpoint url** that you have to pass to the bot (see next screenshots).
+2. Telegram Bot, step 1: go to the _menu_ button of [@publishareBot](https://t.me/publishareBot).
+3. Telegram Bot, step 2: select the _/list_ option.
+4. Telegram Bot, step 3: select one of your channels (where you previously installed the bot).
+5. Telegram Bot, step 4: click _Your own website_ button.
+6. Telegram Bot, step 5: click _Insert_ button.
+7. Telegram Bot, step 6: Paste and send the **Endpoint url** that you just copied from the plugin page.
+8. Telegram Bot, step 7: All done!
 
 == Changelog ==
 1.0.0
